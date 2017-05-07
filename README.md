@@ -14,6 +14,9 @@ https://www.airbnb.com/api/v2/calendar_months?key=[API_KEY]&currency=USD&locale=
 2. set API_KEY as an environment variable
 3. run node index.js
 
+#### Running the tests:
+1. TEST=true node test.js
+
 
 ### Heat Map
 A basic Express based app for displaying a heat map of the to 100 most demanded listings in a specifc location.

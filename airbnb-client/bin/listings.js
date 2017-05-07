@@ -8,13 +8,13 @@ const Datastore = require('nedb');
 let db;
 if (!process.env.TEST) {
   db = new Datastore({ filename: path.join(__dirname, '..', '..', 'data', 'listings1.json'), autoload: true });
+  db.ensureIndex({ fieldName: 'city' }, function (err) {
+    if (err) {
+      console.error(err);
+    }
+  });
+  console.log('Creating DB at', path.join(__dirname, '..', 'data', 'listings1.json'));  
 }
-console.log('Creating DB at', path.join(__dirname, '..', 'data', 'listings1.json'));  
-db.ensureIndex({ fieldName: 'city' }, function (err) {
-  if (err) {
-    console.error(err);
-  }
-});
 
 const API_KEY = process.env.API_KEY;
 
@@ -140,7 +140,7 @@ if (process.env.TEST) {
   test('test correct queries', t => {
     const queries = generateListingQueries('Los Angeles');
     t.equal(queries.length, 80);
-    t.equal(queries[0], 'https://api.airbnb.com/v2/search_results?client_id=d306zoyjsyarp7ifhu67rjxn52tv0t20&location=Los%20Angeles&_limit=50&_offset=0&price_min=0&price_max=100');
+    t.equal(queries[0], 'https://api.airbnb.com/v2/search_results?client_id=undefined&location=Los%20Angeles&_limit=50&_offset=0&price_min=0&price_max=100');
     t.end();
   });
 }
